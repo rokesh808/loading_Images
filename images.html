@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Images Page</title>
+    <style>
+        body {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            color:rgb(17, 14, 14);
+            background-color: rgba(239, 26, 247, 0.527);
+        }
+        body h1{
+            display:block;
+            width:100%;
+            color:rgb(15, 163, 163);
+            text-align:center;
+            border-bottom:5px solid green;
+        }
+
+        .user-card {
+            text-align: center;
+            margin: 10px;
+            padding: 10px;
+            background-color: rgba(0, 255, 255,0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition-property: background-color;
+            transition-duration: 1s;
+            transition-delay: 0.1ms;
+            transition-timing-function: ease-in-out;
+        }
+        .user-card:hover{
+            background-color: rgba(0,255,255,0.8);
+        }
+
+        .user-image {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TOP 25 SCEINTISTS</h1>
+    <script>
+        const jsonData=[
+        {"image":"./einstien-min.jpeg"},
+        {"image":"./darwin-min.jpeg"},
+        {"image":"./hawking-min.jpeg"},
+        {"image":"./cv raman-min.jpeg"},
+        {"image":"./bohr-min.jpeg"},
+        {"image":"./galileo-min.jpeg"},
+        {"image":"./frendrich-min.jpeg"},
+        {"image":"./david hilbert-min.jpeg"},
+        {"image":"./marie curie-min.jpeg"},
+        {"image":"./max planck-min.jpeg"},
+        {"image":"./michael faraday-min.jpeg"},
+        {"image":"./newton-min.jpeg"},
+        {"image":"./rutherford-min.jpeg"},
+        {"image":"./thomas-min.jpeg"},
+        {"image":"./tesla-min.jpeg"},
+        {"image":"./john dalton-min.jpeg"},
+        {"image":"./james watt-min.jpg"},
+        {"image":"./graham-min.jpeg"},
+        {"image":"./goldstein-min.jpeg"},
+        {"image":"./louis pasteur-min.jpeg"},
+        {"image":"./arya bhata-min.jpeg"},
+        {"image":"./aristole-min.jpeg"},
+        {"image":"./archimedes-min.jpeg"},
+        {"image":"./alexandar-min.jpeg"},
+        {"image":"./abdul-min.jpeg"}
+        ];
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            const container = document.body;
+
+            async function loadImageAsync(url) {
+                return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.src = url;
+                    img.onload = resolve;
+                    img.onerror = reject;
+                });
+            }
+
+            await Promise.all(jsonData.map(async user => {
+                try {
+                    await loadImageAsync(user.image);
+
+                    const card = document.createElement("div");
+                    card.className = "user-card";
+
+                    const imgElement = document.createElement("img");
+                    imgElement.src = user.image;
+                    imgElement.alt = "User Image";
+                    imgElement.className = "user-image";
+                    card.appendChild(imgElement);
+
+                    const description = document.createElement("p");
+                    description.textContent = user.description;
+                    card.appendChild(description);
+
+                    container.appendChild(card);
+                } catch (error) {
+                    console.error(`Error loading image: ${user.image}`);
+                }
+            }));
+        });
+    </script>
+</body>
+</html>
